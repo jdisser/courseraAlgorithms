@@ -1,8 +1,12 @@
 package assignment1;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class GreatestMultiple {
 
-	public long shiftSwap(long[] da) {
+	public static long shiftSwap(long[] da) {
 		int m1 = -1;
 		int m2 = -1;
 		int t = 0;
@@ -47,7 +51,7 @@ public class GreatestMultiple {
 	}
 	
 	
-	public long searchMax(long[] da) {
+	public static long searchMax(long[] da) {
 		
 		int m1 = 0;
 		int m2 = 1;			//put max in [0] and start at [1] for the 2nd loop
@@ -74,6 +78,34 @@ public class GreatestMultiple {
 		}
 
 		return da[0] * da[m2];
+	}
+	
+	public static void main(String[] args) {
+		List<long[]> as = new ArrayList<long[]>();
+		long[] data;
+		data = new long[5];
+
+		for(int i = 5; i > 0; --i) {
+			data[i-1] = i;
+		}
+		
+		as.add(data);
+		
+		for(int i = 1; i > 6; ++i) {
+			data[i-1] = i;
+		}
+		
+		as.add(data);
+		
+		for(long[] ary : as) {
+			System.out.print("Test Array: [");
+			for(int i = 0; i < ary.length; ++i)
+				System.out.print(ary[i] + ",");
+			System.out.println("]");
+			System.out.println("ShiftSwap: " + shiftSwap(ary));
+			System.out.println("SearchMax: " + searchMax(ary));
+		}
+		
 	}
 
 }
