@@ -2,8 +2,10 @@ package assignment1;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.lang.Math;
 
 
 public class GreatestMultiple {
@@ -82,11 +84,36 @@ public class GreatestMultiple {
 		return da[0] * da[m2];
 	}
 	
-	public static void main(String[] args) {
+	public static void stressTest(int n, int rng, int itr) {
+		
+		long[] stressData = new long[n];
+		long ref;
+		long fast;
+		
+		for(int l = 0; l < itr; ++l) {
+			for(int i = 0; i < n; ++i) {
+				stressData[i] = Math.round(Math.random() * rng);
+			}
+			
+			ref = searchMax(stressData);
+			fast = shiftSwap(stressData);
+			
+			if (ref != fast) {
+				System.out.println("Stress Test Failed: Loop " + l);
+				return;
+			}
+			
+		}
+		System.out.println("Stress Test Passed: Loops:" + itr + " Length: " + n + " Range: " + rng);
+		return;
+	}
+	
+	public static void staticTest() {
 		Set<long[]> as = new HashSet<long[]>();
 		
 		long[] data2 = new long[5];
 		long[] data1 = new long[5];
+		long[] data3 = new long[5];
 		
 		long[] lrgData = new long[200000];
 
@@ -108,8 +135,7 @@ public class GreatestMultiple {
 		minData3[1] = 90000;
 		
 		as.add(minData3);
-		
-		
+				
 		
 		for(int i = 5; i > 0; --i) {
 			data2[i-1] = i;
@@ -122,6 +148,9 @@ public class GreatestMultiple {
 		as.add(data1);
 		as.add(data2);
 		
+		Arrays.setAll(data3, i -> i + 1);
+		data3[2] = 5;
+		as.add(data3); 	//test for duplicate maximum
 		
 		
 		for(long[] ary : as) {
@@ -139,6 +168,15 @@ public class GreatestMultiple {
 		}
 		System.out.println("ShiftSwap: " + shiftSwap(lrgData));
 		System.out.println("SearchMax: " + searchMax(lrgData));
+	}
+	
+	public static void main(String[] args) {
+
+		System.out.println("Static Test");
+		staticTest();
+		
+		System.out.println("Stress Test");
+		stressTest(50, 100, 3000);
 		
 		
 	}
