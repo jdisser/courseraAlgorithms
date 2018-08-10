@@ -1,10 +1,10 @@
 package assignment1;
 
-import java.util.List;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Scanner;
 import java.lang.Math;
 
 
@@ -172,11 +172,32 @@ public class GreatestMultiple {
 	
 	public static void main(String[] args) {
 
+		/*
+		 * 
+		 * 
+		 *  This is the first version submitted for assignment 1
+		 *  
+		 *  
 		System.out.println("Static Test");
 		staticTest();
 		
 		System.out.println("Stress Test");
 		stressTest(50, 100, 3000);
+		*/
+		
+		Scanner s = new Scanner(System.in);
+		
+		int length = s.nextInt();
+		
+		long[] testData = new long[length];
+		
+		for(int i = 0; i < length; ++i) {
+			testData[i] = s.nextLong();
+		}
+		
+		System.out.println(shiftSwap(testData));
+		
+		s.close();
 		
 		
 	}
