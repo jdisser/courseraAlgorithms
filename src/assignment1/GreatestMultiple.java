@@ -2,7 +2,9 @@ package assignment1;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class GreatestMultiple {
 
@@ -81,21 +83,46 @@ public class GreatestMultiple {
 	}
 	
 	public static void main(String[] args) {
-		List<long[]> as = new ArrayList<long[]>();
-		long[] data;
-		data = new long[5];
+		Set<long[]> as = new HashSet<long[]>();
+		
+		long[] data2 = new long[5];
+		long[] data1 = new long[5];
+		
+		long[] lrgData = new long[200000];
 
+		long[] minData1 = new long[2];
+		long[] minData2 = new long[2];
+		long[] minData3 = new long[2];
+		
+		minData1[0] = 1;
+		minData1[1] = 2;
+		
+		as.add(minData1);
+		
+		minData2[0] = 2;
+		minData2[1] = 1;
+		
+		as.add(minData2);
+		
+		minData3[0] = 100000;
+		minData3[1] = 90000;
+		
+		as.add(minData3);
+		
+		
+		
 		for(int i = 5; i > 0; --i) {
-			data[i-1] = i;
+			data2[i-1] = i;
 		}
 		
-		as.add(data);
-		
-		for(int i = 1; i > 6; ++i) {
-			data[i-1] = i;
+		for(int i = 1; i < 6; ++i) {
+			data1[i-1] = 6 - i;
 		}
 		
-		as.add(data);
+		as.add(data1);
+		as.add(data2);
+		
+		
 		
 		for(long[] ary : as) {
 			System.out.print("Test Array: [");
@@ -105,6 +132,14 @@ public class GreatestMultiple {
 			System.out.println("ShiftSwap: " + shiftSwap(ary));
 			System.out.println("SearchMax: " + searchMax(ary));
 		}
+		
+		System.out.println("Large Dataset Test");
+		for(int i = 0; i < 200000; ++i) {
+			lrgData[i] = i + 1;
+		}
+		System.out.println("ShiftSwap: " + shiftSwap(lrgData));
+		System.out.println("SearchMax: " + searchMax(lrgData));
+		
 		
 	}
 
