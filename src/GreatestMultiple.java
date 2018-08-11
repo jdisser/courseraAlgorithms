@@ -11,46 +11,35 @@ import java.lang.Math;
 public class GreatestMultiple {
 
 	public static long shiftSwap(long[] da) {
-		int m1 = -1;
-		int m2 = -1;
+		int m1 = 0;
+		int m2 = 0;
 		int t = 0;
-		int i = 0;
+		int i = 2;
 		
 		if(da.length < 2)
 			return 0;
 		
-		while (i < da.length) {
-			if (m2 == -1){			//load first two numbers
-				if (m1 == -1) {
-					m1 = i;
-					++i;
-					continue;
-				} else
-					m2 = i;
-					if(da[m2] > da[m1]) {	//swap if greater
-						t = m1;
-						m1 = m2;
-						m2 = t;
-					}
-					++i;
-					continue;
-			}
-			
-			if(da[i] > da[m2]) {	//shift to nest index
-				m2 = i;
-			}
-			
-			if(da[m2] > da[m1]) {	//swap if greater
-				t = m1;
-				m1 = m2;
-				m2 = t;
-			}
-
-			
-			++i;
-			
+		if(da[0] > da[1]) {
+			m1 = 0;
+			m2 = 1;
+		} else {
+			m1 = 1;
+			m2 = 0;
 		}
+			
 		
+		while (i < da.length) {
+
+			if(da[i] > da[m2]) {	//shift to next index
+				m2 = i;
+				if(da[m2] > da[m1]) {	//swap if greater
+					t = m1;
+					m1 = m2;
+					m2 = t;
+				}
+			}
+			++i;			
+		}
 		return da[m1] * da[m2];
 	}
 	
@@ -84,11 +73,15 @@ public class GreatestMultiple {
 		return da[0] * da[m2];
 	}
 	
+	
+	
+	
 	public static void stressTest(int n, int rng, int itr) {
 		
 		long[] stressData = new long[n];
 		long ref;
 		long fast;
+
 		
 		for(int l = 0; l < itr; ++l) {
 			for(int i = 0; i < n; ++i) {
@@ -97,6 +90,7 @@ public class GreatestMultiple {
 			
 			ref = searchMax(stressData);
 			fast = shiftSwap(stressData);
+
 			
 			if (ref != fast) {
 				System.out.println("Stress Test Failed: Loop " + l);
@@ -170,12 +164,37 @@ public class GreatestMultiple {
 		System.out.println("SearchMax: " + searchMax(lrgData));
 	}
 	
+	public static void timeTest() {
+		
+		long[] stressData = new long[200000];
+		long fast = 0;
+		
+		
+			for(int i = 0; i < 200000; ++i) {
+				stressData[i] = Math.round(Math.random() * 200000);
+			}
+		
+		long tStart;
+		long tEnd;
+		long elapsed;
+		
+		tStart = System.currentTimeMillis();
+		fast = shiftSwap(stressData);
+		tEnd = System.currentTimeMillis();
+		elapsed = tEnd -tStart;
+		
+		System.out.println("Run Time Test: " + elapsed + " Milliseonds" );
+		System.out.println("Max Product: " + fast);
+		
+	}
+	
 	public static void main(String[] args) {
 
 		/*
 		 * 
 		 * 
-		 *  This is the first version submitted for assignment 1
+		 *  This is the 2nd version submitted for assignment 1
+		 *  it has a shorter algorithm than the 1st version
 		 *  
 		 *  
 		System.out.println("Static Test");
@@ -183,6 +202,8 @@ public class GreatestMultiple {
 		
 		System.out.println("Stress Test");
 		stressTest(50, 100, 3000);
+		
+		timeTest();
 		*/
 		
 		Scanner s = new Scanner(System.in);
