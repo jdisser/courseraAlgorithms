@@ -12,9 +12,11 @@ public class FibonacciLastDigit {
             int tmp_previous = previous;
             previous = current;
             current = tmp_previous + current;
+            if (current >= 10)
+            	current -= 10;
         }
 
-        return current % 10;
+        return current;
     }
     
     public static void main(String[] args) {
