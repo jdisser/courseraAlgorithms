@@ -58,9 +58,9 @@ public class LCM {
     int b = scanner.nextInt();
     
     int gcd = gcd_euler(a,b);
-    int lcm = b/gcd * a;
+    long lcm = (long) b/(long)gcd * (long) a;
     
-    //System.out.println("a: " + a + " b: "+b+" GCD: "+ gcd);
+    //System.out.println("a: " + a + " b: "+ b + " GCD: " + gcd);
     //System.out.println(lcm_naive(a, b));
     System.out.println(lcm);
     
