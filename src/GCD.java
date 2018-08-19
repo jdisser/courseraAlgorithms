@@ -41,7 +41,8 @@ public class GCD {
 	  while (remainder != 0) {
 		  abscissa = divisor;
 		  divisor = remainder;
-		  remainder = abscissa % divisor;
+		  //remainder = abscissa % divisor;
+		  remainder = abscissa % remainder;		//this leaves remainder in the ALU possibly a little faster
 	  }
 	  
 	  return divisor;

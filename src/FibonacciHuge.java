@@ -65,14 +65,18 @@ public class FibonacciHuge {
     public static long getFibonacciHuge(long n, long m) {
     	ArrayList<Integer> pattern = getFibonacciPattern(n,m);
     	int patternModulus = pattern.size();
+    	
     	Integer f = null;
+    	long index = 0;
     	
     	if(n < patternModulus) {
-    		f = pattern.get((int)n);
-    		return (long) f.intValue();
+    		index = n;
+
+    	} else {
+    		index = n % patternModulus;
     	}
     	
-    	f = pattern.get((int)n % patternModulus);
+    	f = pattern.get((int) index);
     	return (long) f.intValue();
     	
     	
