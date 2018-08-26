@@ -4,8 +4,8 @@ public class DotProduct {
     private static long maxDotProduct(int[] a, int[] b) {
         
     	int n = a.length;
-    	int maxA = 0;
-    	int maxB = 0;
+    	int maxA = Integer.MIN_VALUE;
+    	int maxB = Integer.MIN_VALUE;
     	int tA = 0;
     	int tB = 0;
     	int pA = 0;
@@ -39,8 +39,8 @@ public class DotProduct {
     			b[top] = b[pB];
     			b[pB] = tB;
     		}
-    		maxA = 0;
-    		maxB = 0;
+    		maxA = Integer.MIN_VALUE;
+    		maxB = Integer.MIN_VALUE;
     	}
  
         for (int i = 0; i < n; i++) {
