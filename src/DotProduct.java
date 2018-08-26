@@ -22,7 +22,7 @@ public class DotProduct {
         			pA = j;
         		}
         		
-        		if(b[j] > maxB) {		//not handling negative numbers or 0 correctly
+        		if(b[j] > maxB) {		
         			maxB = b[j];
         			pB = j;
         		}
@@ -63,11 +63,11 @@ public class DotProduct {
         }
         scanner.close();        
         
-        System.out.println("a0: " + Arrays.toString(a));
-    	System.out.println("b0: " + Arrays.toString(b));
+        //System.out.println("a0: " + Arrays.toString(a));
+    	//System.out.println("b0: " + Arrays.toString(b));
         System.out.println(maxDotProduct(a, b));
-    	System.out.println("a: " + Arrays.toString(a));
-    	System.out.println("b: " + Arrays.toString(b));
+    	//System.out.println("a: " + Arrays.toString(a));
+    	//System.out.println("b: " + Arrays.toString(b));
         
 
     }
