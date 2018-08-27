@@ -44,7 +44,7 @@ public class DotProduct {
     	}
  
         for (int i = 0; i < n; i++) {
-            result += a[i] * b[i];
+            result += (long)a[i] * (long)b[i];
         }
         return result;
     }
