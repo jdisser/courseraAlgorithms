@@ -107,9 +107,10 @@ public class CoveringSegments {
     	
     	for(int top = 0; top < n-1; ++top) {
     		for(int i = top; i < n; ++i ) {
-        		if(segments[i].getStart() < minStart)
+        		if(segments[i].getStart() < minStart) {
         			minStart = segments[i].getStart();
         			pS = i;
+        		}
         	}
     		if(pS != top) {
     			t = segments[top];
@@ -121,8 +122,11 @@ public class CoveringSegments {
     		
     		
     	}
-    	
-    	
+    	/*
+    	for(int j = 0; j < segments.length; ++j) {
+    		System.out.println(segments[j].toString());
+    	}
+    	*/
     	return segments;
     }
     
@@ -136,10 +140,17 @@ public class CoveringSegments {
             end = scanner.nextInt();
             segments[i] = new Segment(start, end);
         }
+        //find length of non-zero portion of array
+        int l = 0;
         int[] points = optimalPoints(segments);
-        System.out.println(points.length);
-        for (int point : points) {
-            System.out.print(point + " ");
+        for(int j = 0; j < points.length; ++j) {
+        	if(points[j] != 0)
+        		++l;
+        }
+        
+        System.out.println(l);
+        for (int p = 0; p < l; ++p) {
+            System.out.print(points[p] + " ");
         }
         scanner.close();
     }
