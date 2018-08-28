@@ -6,6 +6,7 @@ public class CoveringSegments {
         //write your code here
     	
     	int[] points = new int[segments.length + 1];
+    	Arrays.fill(points, -1); 							//initialize the array to -1
     	int pointP = 0;										//pointer into the points array
     	
     	segments = sort(segments);
@@ -143,8 +144,11 @@ public class CoveringSegments {
         //find length of non-zero portion of array
         int l = 0;
         int[] points = optimalPoints(segments);
+        
+        //System.out.println("points:" + Arrays.toString(points));
+        
         for(int j = 0; j < points.length; ++j) {
-        	if(points[j] != 0)
+        	if(points[j] != -1)						//a good point can not be -1!!!
         		++l;
         }
         
