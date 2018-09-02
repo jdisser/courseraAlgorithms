@@ -52,11 +52,13 @@ public class BinarySearch {
         Segment sA = new Segment(left, right);
         int lengthS = sA.length();
 
-        while (lengthS >= 2) {		//not sure if this will terminate
+        while (sA.left != sA.right) {		//not sure if this will terminate
+        	/*
         	if (x == a[sA.left])
         		return sA.left;
         	if (x == a[sA.right])
         		return sA.right;
+        	*/
         	
         	if (x > a[sA.mid()])	//The middle element is returned in the bottom segment
         		sA = sA.top();
@@ -68,8 +70,10 @@ public class BinarySearch {
         	//if a segment.length = 2 was not returned above then it is not in the set
         	
         }
-
-        return -1;
+        if(x == a[sA.left])
+        	return sA.left;
+        else
+        	return -1;
     }
 
     static int linearSearch(int[] a, int x) {
@@ -92,9 +96,11 @@ public class BinarySearch {
           b[i] = scanner.nextInt();
         }
         for (int i = 0; i < m; i++) {
-            //replace with the call to binarySearch when implemented
-        	System.out.print("bs: " + binarySearch(a, b[i]) + " ");
-        	System.out.print("ls: " + linearSearch(a, b[i]) + " ");
+            //grading version
+        	System.out.print(binarySearch(a, b[i]) + " ");
+        	//test version
+        	//System.out.print("bs: " + binarySearch(a, b[i]) + " ");
+        	//System.out.print("ls: " + linearSearch(a, b[i]) + " ");
         }
     }
     static class FastScanner {
