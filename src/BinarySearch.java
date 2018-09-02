@@ -16,25 +16,26 @@ public class BinarySearch {
 			return right - left + 1;
 		}
 		
-		public int mid() {
+		public int mid() {						//this function has to compliment the splitting functions
 			
-			int len = right - left + 1;
-			
-			if (len < 3)
-				return left;
-			int half = len / 2;
-			return left + half;
+			if (this.length() < 3)
+				return left;					//check if mid == left for segments length 1,2
+			int half = this.length() / 2;
+			if (this.length() % 2 != 0)
+				return left + half;				//[0,1,2] 1 is mid  [0,1,2,3,4] 2 is mid		
+			else
+				return left + half - 1;			//[0,1] 0 = mid [0,1,2,3] 1 = mid	[0,1,2,3,4,5] 2 = mid	
 						
 		}
 		
 		public Segment top() {
 			int middle = this.mid();
-			return new Segment(middle, this.right);
+			return new Segment(middle + 1, this.right);		//upper half without middle
 		}
 		
 		public Segment bottom() {
 			int middle = this.mid();
-			return new Segment(this.left, middle);
+			return new Segment(this.left, middle);		//lower half with middle
 		}
 	}
 	
@@ -51,23 +52,22 @@ public class BinarySearch {
         Segment sA = new Segment(left, right);
         int lengthS = sA.length();
 
-        while (lengthS > 2) {		//not sure if this will terminate
+        while (lengthS >= 2) {		//not sure if this will terminate
         	if (x == a[sA.left])
         		return sA.left;
         	if (x == a[sA.right])
         		return sA.right;
         	
-        	if (x >= a[sA.mid()])	//if equal to the mid put in top ???
+        	if (x > a[sA.mid()])	//The middle element is returned in the bottom segment
         		sA = sA.top();
         	else
         		sA = sA.bottom();
         	
         	lengthS = sA.length();
         	
-        	//add code here to terminate the loop if the segment length is 2
+        	//if a segment.length = 2 was not returned above then it is not in the set
         	
         }
-        
 
         return -1;
     }
@@ -93,7 +93,8 @@ public class BinarySearch {
         }
         for (int i = 0; i < m; i++) {
             //replace with the call to binarySearch when implemented
-            System.out.print(linearSearch(a, b[i]) + " ");
+        	System.out.print("bs: " + binarySearch(a, b[i]) + " ");
+        	System.out.print("ls: " + linearSearch(a, b[i]) + " ");
         }
     }
     static class FastScanner {
