@@ -41,7 +41,7 @@ public class BinarySearch {
 	
 	
     static int binarySearch(int[] a, int x) {
-        int left = 0, right = a.length;
+        int left = 0, right = a.length - 1;
 
         if(x < a[left])
         	return -1;
