@@ -10,13 +10,7 @@ public class BinarySearch {
     	//System.out.println(" ");
     	//System.out.println("Entry l: " + l + " r: " +  r  + " x: " + x);
     	//System.out.println(Arrays.toString(a));
-    	
-        if(x < a[l])
-        	return -1;
-        
-        if(x > a[r])
-        	return -1;   
-    	
+    	    	
         if(l >= r)
         	if (a[l] == x) 
         		return l;
@@ -58,10 +52,17 @@ public class BinarySearch {
         for (int i = 0; i < m; i++) {
           b[i] = scanner.nextInt();
         }
+        
+        int left = 0, right = a.length - 1;
+        
         for (int i = 0; i < m; i++) {
             //grading version
-        	
-            int left = 0, right = a.length - 1;
+        	            
+            if(b[i] < a[left] || b[i] > a[right]) {
+            	System.out.print("-1 ");
+            	continue;
+            }
+            	 
 
         	System.out.print(binarySearch(a, left, right, b[i]) + " ");
         	
