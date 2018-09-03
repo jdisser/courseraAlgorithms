@@ -50,7 +50,7 @@ public class BinarySearch {
         	return -1;   
         
         Segment sA = new Segment(left, right);
-        int lengthS = sA.length();
+
 
         while (sA.left != sA.right) {		//not sure if this will terminate
         	/*
@@ -65,9 +65,6 @@ public class BinarySearch {
         	else
         		sA = sA.bottom();
         	
-        	lengthS = sA.length();
-        	
-        	//if a segment.length = 2 was not returned above then it is not in the set
         	
         }
         if(x == a[sA.left])
