@@ -4,7 +4,7 @@ import java.io.*;
 public class MajorityElement {
 	
 	static int[] aa;
-	static int majority = (aa.length / 2) + 1; 
+	static int majority; 
 	
 	static class Partition {
 		public int left;
@@ -23,14 +23,18 @@ public class MajorityElement {
 		}
 		
 		public int lengthMid() {
-			return m2 - m1 + 1;
+			return m1 - m2 + 1;
 		}
 		
 		public int lengthRight() {
-			return right - m2 + 1;
+			return right - m1;
 		}
 		public int lengthLeft() {
-			return m1 - left + 1;
+			return m2 - left;
+		}
+		
+		public void setN() {
+			n = right - left + 1;
 		}
 		
 		public void swapValues(int to, int from) {
@@ -47,6 +51,7 @@ public class MajorityElement {
 			return;	
 		}
 		
+		// l <= (*i < *pivot) < m2 <= (*i == *pivot) <= m1 < (*i > *pivot) <= r
 		public void doPartition3() {
 			setPivotToMid();
 			m1 = pivot;
@@ -54,26 +59,33 @@ public class MajorityElement {
 			
 			for (int pi = pivot + 1; pi <= right; ++pi) {
 					if(aa[pi] <= aa[pivot]) {
-						// ++[m1],swap [pi] <-> [m1]
 						++m1;
-						swapValues(m1,pi);
+						if(pi != m1)
+							swapValues(m1,pi);
 					}	
 			}
 			
-			//add a 2nd loop here to run on the lower partition to sort out [pi] = [pivot]
+
 			for (int pi = pivot + 1; pi <= m1; ++pi) {
 				if(aa[pi] < aa[pivot]) {
-					// ++[m2],swap [pi] <-> [m2]
 					++m2;
-					swapValues(m2,pi);
+					if(pi != m2)
+						swapValues(m2,pi);
 				}
 			}
 			
-			swapValues(m2,pivot);
-			--m2;
+			if(m2 != pivot)
+				swapValues(m2,pivot);
+
 			
 			return;
 		
+		}
+
+		@Override
+		public String toString() {
+			return "Partition [left=" + left + ", right=" + right + ", m1=" + m1 + ", m2=" + m2 + ", pivot=" + pivot
+					+ ", t=" + t + ", n=" + n + ", leftL:" + lengthLeft() +  ", midL:" + lengthMid() + ", rightL:" + lengthRight() +"]";
 		}
 		
 	}
@@ -91,18 +103,45 @@ public class MajorityElement {
             else
             	return false;
         }
+        //System.out.println("Initially");
+        //System.out.println(p.toString());
+        //System.out.println(Arrays.toString(aa));
+        
+        int safety = 0;
         
         while(p.n >= majority ) {	//a majority of aa -> petition length > n/2
         	p.setPivotToMid();
         	p.doPartition3();
+        	
+        	//System.out.println("after setPivot and doPartition");
+        	//System.out.println(p.toString());
+            //System.out.println(Arrays.toString(aa));
+
+            
+            
         	if(p.lengthMid() >= majority)
         		return true;
         	if(p.lengthLeft() > p.lengthRight()) {
-        		p.right = p.m2;
+        		p.right = p.m2 - 1;
+        		p.setN();
+        		//System.out.println("left is greater");
         	} else {
-        		p.left = p.m1;
+        		p.left = p.m1 + 1;
+        		p.setN();
+        		//System.out.println("right is greater");
         	}
         	
+        	//System.out.println("after majority test and set ends");
+        	//System.out.println(p.toString());
+            //System.out.println(Arrays.toString(aa));
+        	//break;	//for debug
+        	/*
+        	if(++safety > 10) {
+        		System.out.println("SAFETY BREAK !!!!!!");
+        		break;
+        	}
+        	*/
+        		
         }
         
         return false;
@@ -117,6 +156,7 @@ public class MajorityElement {
         }
         
         aa = a;
+        majority = (aa.length / 2) + 1;
         
         if (isMajorityElement() == true) {
             System.out.println(1);
