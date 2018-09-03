@@ -3,76 +3,40 @@ import java.util.*;
 
 public class BinarySearch {
 
-	static class Segment {
-		public int left;
-		public int right;
-		
-		public Segment(int l, int r) {
-			this.left = l;
-			this.right = r;
-		}
-		
-		public int length() {
-			return right - left + 1;
-		}
-		
-		public int mid() {						//this function has to compliment the splitting functions
-			
-			if (this.length() < 3)
-				return left;					//check if mid == left for segments length 1,2
-			int half = this.length() / 2;
-			if (this.length() % 2 != 0)
-				return left + half;				//[0,1,2] 1 is mid  [0,1,2,3,4] 2 is mid		
-			else
-				return left + half - 1;			//[0,1] 0 = mid [0,1,2,3] 1 = mid	[0,1,2,3,4,5] 2 = mid	
-						
-		}
-		
-		public Segment top() {
-			int middle = this.mid();
-			return new Segment(middle + 1, this.right);		//upper half without middle
-		}
-		
-		public Segment bottom() {
-			int middle = this.mid();
-			return new Segment(this.left, middle);		//lower half with middle
-		}
-	}
 	
 	
-    static int binarySearch(int[] a, int x) {
-        int left = 0, right = a.length - 1;
+    static int binarySearch(int[] a, int l, int r, int x) {
 
-        if(x < a[left])
+    	//System.out.println(" ");
+    	//System.out.println("Entry l: " + l + " r: " +  r  + " x: " + x);
+    	//System.out.println(Arrays.toString(a));
+    	
+        if(x < a[l])
         	return -1;
         
-        if(x > a[right])
+        if(x > a[r])
         	return -1;   
-        
-        Segment sA = new Segment(left, right);
-
-
-        //the looping overhead is causing this to run overtime and needs to be replaced with recursion
-        
-        while (sA.left != sA.right) {		//not sure if this will terminate
-        	/*
-        	if (x == a[sA.left])
-        		return sA.left;
-        	if (x == a[sA.right])
-        		return sA.right;
-        	*/
-        	
-        	if (x > a[sA.mid()])	//The middle element is returned in the bottom segment
-        		sA = sA.top();
+    	
+        if(l >= r)
+        	if (a[l] == x) 
+        		return l;
         	else
-        		sA = sA.bottom();
-        	
-        	
-        }
-        if(x == a[sA.left])
-        	return sA.left;
+        		return -1;					//if x is not found
+        
+    	int m;								//midpoint
+        
+        m = l + (r - l)/2;
+        
+        //System.out.println("m: " +  m);
+        
+        if(x == a[m])
+        	return m;
+        
+        if(x < a[m])
+        	return binarySearch(a, l, m, x);
         else
-        	return -1;
+        	return binarySearch(a, m+1, r, x);        
+         
     }
 
     static int linearSearch(int[] a, int x) {
@@ -96,9 +60,13 @@ public class BinarySearch {
         }
         for (int i = 0; i < m; i++) {
             //grading version
-        	System.out.print(binarySearch(a, b[i]) + " ");
+        	
+            int left = 0, right = a.length - 1;
+
+        	System.out.print(binarySearch(a, left, right, b[i]) + " ");
+        	
         	//test version
-        	//System.out.print("bs: " + binarySearch(a, b[i]) + " ");
+        	//System.out.print("bs: " + binarySearch(a, left, right, b[i]) + " ");
         	//System.out.print("ls: " + linearSearch(a, b[i]) + " ");
         }
     }
