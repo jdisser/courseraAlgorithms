@@ -10,23 +10,28 @@ public class BinarySearch {
     	//System.out.println(" ");
     	//System.out.println("Entry l: " + l + " r: " +  r  + " x: " + x);
     	//System.out.println(Arrays.toString(a));
-    	    	
+    	
+    	/*
         if(l >= r)
         	if (a[l] == x) 
         		return l;
         	else
         		return -1;					//if x is not found
-        
+        */
+    	
+    	if(l >= r)
+        	return l;
+    	
     	int m;								//midpoint
         
         m = l + (r - l)/2;
         
         //System.out.println("m: " +  m);
         
-        if(x == a[m])
-        	return m;
+        //if(x == a[m])
+        //	return m;
         
-        if(x < a[m])
+        if(x <= a[m])
         	return binarySearch(a, l, m, x);
         else
         	return binarySearch(a, m+1, r, x);        
@@ -54,6 +59,7 @@ public class BinarySearch {
         }
         
         int left = 0, right = a.length - 1;
+        int pa;
         
         for (int i = 0; i < m; i++) {
             //grading version
@@ -62,9 +68,13 @@ public class BinarySearch {
             	System.out.print("-1 ");
             	continue;
             }
-            	 
+            
+            pa = binarySearch(a, left, right, b[i]);
 
-        	System.out.print(binarySearch(a, left, right, b[i]) + " ");
+            if(b[i] == a[pa])
+            	System.out.print(pa + " ");
+            else
+            	System.out.print("-1 ");
         	
         	//test version
         	//System.out.print("bs: " + binarySearch(a, left, right, b[i]) + " ");
