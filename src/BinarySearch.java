@@ -52,6 +52,8 @@ public class BinarySearch {
         Segment sA = new Segment(left, right);
 
 
+        //the looping overhead is causing this to run overtime and needs to be replaced with recursion
+        
         while (sA.left != sA.right) {		//not sure if this will terminate
         	/*
         	if (x == a[sA.left])

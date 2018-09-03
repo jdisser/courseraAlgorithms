@@ -6,12 +6,48 @@ public class Sorting {
 
     private static int[] partition3(int[] a, int l, int r) {
       //write your code here
+    	
 
+		int m1 = l;
+		int m2 = l;
+		int t;
+		int pivot = l;
+		
+		for (int pi = pivot + 1; pi <= r; ++pi) {
+				if(a[pi] <= a[pivot]) {
+					++m1;
+					if(pi != m1){
+						//swapValues(m1,pi);		//swapValues(to,from)
+						t = a[m1];
+						a[m1] = a[pi];
+						a[pi] = t;
+					}
+				}	
+		}
+		
 
-      int m1 = l;
-      int m2 = r;
-      int[] m = {m1, m2};
-      return m;
+		for (int pi = pivot + 1; pi <= m1; ++pi) {
+			if (a[pi] < a[pivot]) {
+				++m2;
+				if(pi != m2){
+					//swapValues(m2,pi);
+					t = a[m2];
+					a[m2] = a[pi];
+					a[pi] = t;
+				}
+			}
+		}
+		
+		if(m2 != pivot){
+			//swapValues(m2,pivot);
+			t = a[m2];
+			a[m2] = a[pivot];
+			a[pivot] = t;
+		}
+
+		int[] m = {m1, m2};
+		return m;
+
     }
 
     private static int partition2(int[] a, int l, int r) {
@@ -39,10 +75,18 @@ public class Sorting {
         int t = a[l];
         a[l] = a[k];
         a[k] = t;
-        //use partition3
+        
+        //use partition2
+        /*
         int m = partition2(a, l, r);
         randomizedQuickSort(a, l, m - 1);
         randomizedQuickSort(a, m + 1, r);
+        */
+        
+        //use partition 3
+        int[] m = partition3(a, l, r);				//left pointer is m2 -> m[1] & right m1 -> m[0]
+        randomizedQuickSort(a, l, m[1] - 1);
+        randomizedQuickSort(a, m[0] + 1, r);
     }
 
     public static void main(String[] args) {
