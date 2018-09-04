@@ -3,22 +3,16 @@ import java.util.*;
 
 public class BinarySearch {
 
-	
-	
-    static int binarySearch(int[] a, int l, int r, int x) {
+	static int aa[];
+	/*
+	 * 
+	 //recursive solution
+    static int binarySearch(int l, int r, int x) {
 
     	//System.out.println(" ");
     	//System.out.println("Entry l: " + l + " r: " +  r  + " x: " + x);
     	//System.out.println(Arrays.toString(a));
-    	
-    	/*
-        if(l >= r)
-        	if (a[l] == x) 
-        		return l;
-        	else
-        		return -1;					//if x is not found
-        */
-    	
+    	    	
     	if(l >= r)
         	return l;
     	
@@ -28,16 +22,51 @@ public class BinarySearch {
         
         //System.out.println("m: " +  m);
         
-        //if(x == a[m])
-        //	return m;
+        if(x == aa[m])
+        	return m;
         
-        if(x <= a[m])
-        	return binarySearch(a, l, m, x);
+        if(x < aa[m])
+        	return binarySearch(l, m - 1, x);
         else
-        	return binarySearch(a, m+1, r, x);        
+        	return binarySearch(m+1, r, x);        
          
     }
+	*/
+	
+	//iterative solution
+	static int binarySearch(int l, int r, int x) {
 
+    	//System.out.println(" ");
+    	//System.out.println("Entry l: " + l + " r: " +  r  + " x: " + x);
+    	//System.out.println(Arrays.toString(a));
+    	    	
+    	
+    	
+    	int m;								//midpoint
+    	
+    	while (l < r) {
+        
+	        m = l + (r - l)/2;
+	        
+	        //System.out.println("m: " +  m);
+	        
+	        /*
+	        if(x == aa[m])
+	        	return m;
+	        */
+	        if(x <= aa[m]) {
+	        	r = m;
+	        } 	
+	        else {
+	        	l = m + 1;
+	        }
+ 
+    	}
+    	
+        return l;
+	}
+	
+	
     static int linearSearch(int[] a, int x) {
         for (int i = 0; i < a.length; i++) {
             if (a[i] == x) return i;
@@ -48,9 +77,9 @@ public class BinarySearch {
     public static void main(String[] args) {
         FastScanner scanner = new FastScanner(System.in);
         int n = scanner.nextInt();
-        int[] a = new int[n];
+        aa = new int[n];
         for (int i = 0; i < n; i++) {
-            a[i] = scanner.nextInt();
+            aa[i] = scanner.nextInt();
         }
         int m = scanner.nextInt();
         int[] b = new int[m];
@@ -58,27 +87,23 @@ public class BinarySearch {
           b[i] = scanner.nextInt();
         }
         
-        int left = 0, right = a.length - 1;
+        int left = 0, right = aa.length - 1;
         int pa;
         
         for (int i = 0; i < m; i++) {
             //grading version
-        	            
-            if(b[i] < a[left] || b[i] > a[right]) {
-            	System.out.print("-1 ");
-            	continue;
-            }
-            
-            pa = binarySearch(a, left, right, b[i]);
+        	
 
-            if(b[i] == a[pa])
+            pa = binarySearch(left, right, b[i]);
+
+            if(b[i] == aa[pa])
             	System.out.print(pa + " ");
             else
             	System.out.print("-1 ");
         	
         	//test version
-        	//System.out.print("bs: " + binarySearch(a, left, right, b[i]) + " ");
-        	//System.out.print("ls: " + linearSearch(a, b[i]) + " ");
+        	//System.out.print("bs: " + binarySearch(left, right, b[i]) + " ");
+        	//System.out.print("ls: " + linearSearch(aa, b[i]) + " ");
         }
     }
     static class FastScanner {

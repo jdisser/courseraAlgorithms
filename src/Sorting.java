@@ -16,12 +16,12 @@ public class Sorting {
 		for (int pi = pivot + 1; pi <= r; ++pi) {
 				if(a[pi] <= a[pivot]) {
 					++m1;
-					if(pi != m1){
+					//if(pi != m1){
 						//swapValues(m1,pi);		//swapValues(to,from)
 						t = a[m1];
 						a[m1] = a[pi];
 						a[pi] = t;
-					}
+					//}
 				}	
 		}
 		
@@ -29,21 +29,21 @@ public class Sorting {
 		for (int pi = pivot + 1; pi <= m1; ++pi) {
 			if (a[pi] < a[pivot]) {
 				++m2;
-				if(pi != m2){
+				//if(pi != m2){
 					//swapValues(m2,pi);
 					t = a[m2];
 					a[m2] = a[pi];
 					a[pi] = t;
-				}
+				//}
 			}
 		}
 		
-		if(m2 != pivot){
+		//if(m2 != pivot){
 			//swapValues(m2,pivot);
 			t = a[m2];
 			a[m2] = a[pivot];
 			a[pivot] = t;
-		}
+		//}
 
 		int[] m = {m1, m2};
 		return m;
