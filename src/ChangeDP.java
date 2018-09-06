@@ -5,7 +5,7 @@ public class ChangeDP {
         
     	int[] coins = {1,3,4};
     	
-    	int[] minCoins = new int[1000];
+    	int[] minCoins = new int[1010];
     	
     	if(m == 0)
     		return 0;
