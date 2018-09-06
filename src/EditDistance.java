@@ -13,7 +13,7 @@ class EditDistance {
 	for(int i = 0; i <= n; ++i)			//Initialize the 0 index row and column to the index
 		D[i][0] = i;
 	for(int j = 0; j <= m; ++j)
-		D[j][0] = j;
+		D[0][j] = j;
     
     int ins = 0;
     int del = 0;
@@ -28,7 +28,7 @@ class EditDistance {
 	   mis = 0;
 	   mtc = 0;
 	   
-	   for(int i = 1; i <= m; ++i) {
+	   for(int i = 1; i <= n; ++i) {
 		  ins = D[i][j - 1] + 1;					//compute the cost for all possibilities
 		  del = D[i - 1][j] + 1;
 		  mis = D[i - 1][j - 1] + 1;
