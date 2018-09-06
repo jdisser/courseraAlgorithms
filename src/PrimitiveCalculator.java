@@ -64,38 +64,36 @@ public class PrimitiveCalculator {
     	}
     	
     	
-    	//initialize the sequence to the n value
-    	sequence.add(0, n);
+    	
     	int cV = n;
     	int is = 0;
     	int op = 0;
+    	sequence.add(is, cV);			//enter the loop with n as the first element in the sequence
     	
-    	while (cV >= 1) {				//last value in the sequence should be 1
+    	
+    	while (cV >= 1) {				//the loop add the NEXT element in the sequence
     		
     		minOps = Integer.MAX_VALUE;
     		op = 0;
     		
-    		++is;						//next element in the sequence
-    		sequence.add(is, 0); 		//initialize the sequence element
+    		if(cV == 1) {				
+
+    			break;					//if the cV is 1 the loop is finished
+    		}
     		
-    		if(cV == 1) {				//tests will fail with base cases so handle them explicitly
-    			sequence.set(is, cV);
+    		if(cV == 2) {
+    			++is;
+    			sequence.add(is, 1);	//if it's 2 add the 2 element and finish    			
     			break;
     		}
     		
-    		if(cV == 2) {				
-    			sequence.set(is, cV);
-    			cV = 1;
-    			continue;
+    		if(cV == 3) {
+    			++is;					//if it's 3 add 3 element and finish			
+    			sequence.add(is, 1);
+    			break;
     		}
     		
-    		if(cV == 3) {				
-    			sequence.set(is, cV);
-    			cV = 1;
-    			continue;
-    		}
-    		
-    		if (cV % 2 == 0) {			//look for the least numOps to get back to 1
+    		if (cV % 2 == 0) {			//look for the least numOps for each op to get back to 1, 2 or 3
     			test = numOps.get(cV/2);
     			if(test < minOps) {
     				op = 2;
@@ -118,9 +116,12 @@ public class PrimitiveCalculator {
     			minOps = test;
 			}
     		
+    		++is;						//index to the next element in the sequence
+    		sequence.add(is, 0); 		//create the element
+    		
     		switch (op) {				
 	    		case 1:
-	    			cV -= 1;				//adjust the current value based on the min op 
+	    			cV -= 1;				//set the current value based on the min op 
 					sequence.set(is, cV);	//and store the result of the op on the current value
 	    		break;
 	    			
@@ -135,6 +136,8 @@ public class PrimitiveCalculator {
 	    		default:
 	    		break;
     		}
+    		
+
 
     	}
     	
