@@ -55,6 +55,8 @@ public class LCS2 {
        int j = m;
        int ni = i;
        int nj = j;
+       int mi = 0;
+       int mj = 0;
       
        /*
        if(i == 1 && j == 1) {				//test the 1,1 case for a 1 x 1 matrix
@@ -85,12 +87,14 @@ public class LCS2 {
     	    * 
     	    */
     	   
+    	   mi = 0;
+    	   mj = 0;
     	   
-    	   
-    	   if(D[i][j - 1] < min) {			//look for the minimum move in the matrix
+    	   if(D[i][j - 1] < min) {			//look for the minimum cost move in the matrix
     		   ni = i;
     		   nj = j - 1;
     		   min = D[i][j - 1];
+
     	   }
     	   
     	   if(D[i - 1][j - 1] < min) {
@@ -104,10 +108,41 @@ public class LCS2 {
     		   nj = j;
     		   min = D[i - 1][j];
     	   }
+    	   									//!!!!!!NOT SURE IF THERE COULD BE > 1 MINIMUM MATCHES HERE!!!!!
+    	   if(D[i][j - 1] == min) {			//look for matches at the minimum cost positions
+    		   if(a[i-1] == b[j - 2]) {		//look for a match in the adjacent elements and go to that
+    			   mi = i;
+    			   mj = j - 1;
+    		   }
+    	   }
+    	   
+    	   if(D[i - 1][j - 1] == min) {
+    		   if(a[i - 2] == b[j - 2]) {		
+    			   mi = i - 1;
+    			   mj = j - 1;
+    		   }
+    	   }
+    	   
+    	   if(D[i - 1][j] == min) {
+    		   if(a[i - 2] == b[j - 1]) {		
+    			   mi = i - 1;
+    			   mj = j;
+    		   }
+    	   }
     	   
     	   
-    		   i = ni;							// move to the minimum
+    	   if(mi != 0 || mj != 0) {
+    		   i = mi;							//move to the match if it exists
+    		   j = mj;
+    	   } else {
+    		   i = ni;							// otherwise move to the minimum
     		   j = nj;
+    	   }
+    	   
+    	   
+    	   
+    	   
+
     	   
        }
        
