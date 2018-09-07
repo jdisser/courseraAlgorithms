@@ -117,7 +117,7 @@ public class LCS2 {
     	   }
     	   
     	   if(D[i - 1][j - 1] == min) {
-    		   if(a[i - 2] == b[j - 2]) {		
+    		   if(a[i - 2] == b[j - 2]) {	//<------ index out of bounds here		
     			   mi = i - 1;
     			   mj = j - 1;
     		   }
