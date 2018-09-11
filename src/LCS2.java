@@ -3,7 +3,7 @@ import java.util.*;
 public class LCS2 {
 
     private static int lcs2(int[] a, int[] b) {
-        //this code is string/char based and needs to be refactored for arrays
+        
     	int n = a.length;
         int m = b.length;
         
@@ -47,6 +47,21 @@ public class LCS2 {
     	   }	   
        }
     	
+    	/* 
+    	System.out.println("D[][]: ");						//print D[][] for debug
+        for(int ii = 0; ii <= n; ++ii) {
+     	   System.out.println("");
+     	   for(int jj = 0; jj <= m; ++jj) {
+     		   if (ii >= 1 && jj >= 1)
+     			   System.out.print(D[ii][jj] + (a[ii - 1] == b[jj - 1] ? "m" : "-"));
+     		   else
+     			  System.out.print(D[ii][jj] + "-");
+     	   } 
+        }
+        
+        System.out.println(""); 
+        System.out.println("Matches:");
+    	*/
     	
     	
         //D matrix needs to be traversed back to the 0,0 point while counting the number of matches found along the minimum path
@@ -58,12 +73,7 @@ public class LCS2 {
        int mi = 0;
        int mj = 0;
       
-       /*
-       if(i == 1 && j == 1) {				//test the 1,1 case for a 1 x 1 matrix
-    	   if(a[i-1] == b[j-1])				//the a & b indexes are 1 less than the D indexes due to the 0 row
-    		   ++ics;
-       }
-		*/
+       
 
        while(i > 0 && j > 0) {				//loop until back at 1,1
     	   
@@ -72,18 +82,18 @@ public class LCS2 {
     	   ni = i;							//set the next indexes to the current
     	   nj = j;
     	   
-    	   if(a[i-1] == b[j-1]) {					//check for a match and increment the length of the common segment
+    	   if(a[i-1] == b[j-1]) {			//check for a match and increment the length of the common segment
     		   ++ics;
-    		   System.out.println("i: " + i + " j: " + j);
+    		   //System.out.println("i: " + i + " j: " + j + "m");
+    	   } else {
+    		   //System.out.println("i: " + i + " j: " + j);
     	   }
     	   
     	   /*
-    	    * in the case of 5,2,8,7 and 2,7,8,3
-    	    * this is missing the 2,1 match
-    	    * there is a point in the cost matrix where
+    	    * if there is a point in the cost matrix where
     	    * two costs are the same but one is a match
-    	    * The procedure needs to check for matches and
-    	    * give priority to them for the next indexes
+    	    * The procedure needs to check for a match and
+    	    * give priority to it for the next index
     	    * 
     	    */
     	   
@@ -108,30 +118,37 @@ public class LCS2 {
     		   nj = j;
     		   min = D[i - 1][j];
     	   }
-    	   									//!!!!!!NOT SURE IF THERE COULD BE > 1 MINIMUM MATCHES HERE!!!!!
-    	   if(D[i][j - 1] == min) {			//look for matches at the minimum cost positions
-    		   if(a[i-1] == b[j - 2]) {		//look for a match in the adjacent elements and go to that
-    			   mi = i;
-    			   mj = j - 1;
-    		   }
+
+    	   if(j >= 2 && i >= 1) {
+    		   if(D[i][j - 1] == min) {			//look for matches at the minimum cost positions
+        		   if(a[i - 1 ] == b[j - 2]) {			
+        			   mi = i;
+        			   mj = j - 1;
+        		   }
+        	   } 
     	   }
     	   
-    	   if(D[i - 1][j - 1] == min) {
-    		   if(a[i - 2] == b[j - 2]) {	//<------ index out of bounds here		
-    			   mi = i - 1;
-    			   mj = j - 1;
-    		   }
+    	   if(j >= 2 && i >= 2) {
+    		   if(D[i - 1][j - 1] == min) {
+        		   if(a[i - 2] == b[j - 2]) {		
+        			   mi = i - 1;
+        			   mj = j - 1;
+        		   }
+        	   } 
     	   }
     	   
-    	   if(D[i - 1][j] == min) {
-    		   if(a[i - 2] == b[j - 1]) {		
-    			   mi = i - 1;
-    			   mj = j;
-    		   }
+    	   if(j >= 1 && i >= 2) {
+    		   if(D[i - 1][j] == min) {
+        		   if(a[i - 2] == b[j - 1]) {		
+        			   mi = i - 1;
+        			   mj = j;
+        		   }
+        	   } 
     	   }
     	   
     	   
-    	   if(mi != 0 || mj != 0) {
+    	   
+    	   if(mi != 0 || mj != 0) {				
     		   i = mi;							//move to the match if it exists
     		   j = mj;
     	   } else {
@@ -139,15 +156,10 @@ public class LCS2 {
     		   j = nj;
     	   }
     	   
-    	   
-    	   
-    	   
-
-    	   
+    	   //System.out.println("mi: " + mi + " mj: " + mj);
        }
        
-       return ics;								//return the number of matches in the minimum path
-        
+       return ics;								//return the number of matches in the minimum path        
     }
 
     public static void main(String[] args) {
