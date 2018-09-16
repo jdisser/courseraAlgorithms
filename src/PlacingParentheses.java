@@ -4,8 +4,8 @@ import java.lang.Character;
 
 public class PlacingParentheses {
    	
-	public static int[] digits;
-	public static char[] ops;
+	public static int[] digits = new int[15];
+	public static char[] ops = new char[15];
 	
 	public static void parse(String exp) {
 		int len = exp.length();
@@ -22,7 +22,7 @@ public class PlacingParentheses {
 			if(i % 2 == 0 || i == 0) {
 				digits[i/2 + 1] = Character.getNumericValue(inChars[i]);
 			} else {
-				ops[i/2 + 1] = inChars[i + 1];
+				ops[i/2 + 1] = inChars[i];
 			}		
 		}
 	}
