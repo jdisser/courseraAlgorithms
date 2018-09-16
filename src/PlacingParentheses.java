@@ -10,7 +10,8 @@ public class PlacingParentheses {
 	public static void parse(String exp) {
 		int len = exp.length();
 		
-		digits[0] = 0;			//algorithm is 1 based not 0
+		//algorithm is 1 based not 0
+		Arrays.fill(digits, -1);			//use -1 to detect empty digits		
 		ops[0] = '.';
 		
 		char[] inChars = exp.toCharArray();
@@ -25,6 +26,16 @@ public class PlacingParentheses {
 				ops[i/2 + 1] = inChars[i];
 			}		
 		}
+	}
+	
+	public static int getN() {
+		int n = 0;
+		int len = digits.length;
+		for (int i = 1; i < len; ++i) {
+			if(digits[i] != -1)
+				++n;
+		}
+		return n;
 	}
 	
 	private static long getMaximValue(String exp) {
@@ -55,6 +66,7 @@ public class PlacingParentheses {
         parse(exp);
         System.out.println("ops: "+Arrays.toString(ops));
         System.out.println("digits: "+Arrays.toString(digits));
+        System.out.println("Length: "+ getN());
     }
 }
 
