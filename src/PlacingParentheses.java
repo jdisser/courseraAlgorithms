@@ -7,6 +7,11 @@ public class PlacingParentheses {
 	public static int[] digits = new int[15];
 	public static char[] ops = new char[15];
 	
+	public static long[][] mx = new long[15][15];
+	public static long[][] mn = new long[15][15];
+	
+	public static int n;
+	
 	public static void parse(String exp) {
 		int len = exp.length();
 		
@@ -28,14 +33,14 @@ public class PlacingParentheses {
 		}
 	}
 	
-	public static int getN() {
-		int n = 0;
+	public static void getN() {
+		int nn = 0;
 		int len = digits.length;
 		for (int i = 1; i < len; ++i) {
 			if(digits[i] != -1)
-				++n;
+				++nn;
 		}
-		return n;
+		n = nn;
 	}
 	
 	private static long getMaximValue(String exp) {
@@ -66,7 +71,8 @@ public class PlacingParentheses {
         parse(exp);
         System.out.println("ops: "+Arrays.toString(ops));
         System.out.println("digits: "+Arrays.toString(digits));
-        System.out.println("Length: "+ getN());
+        getN();
+        System.out.println("Length: "+ n);
     }
 }
 
