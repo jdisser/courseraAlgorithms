@@ -68,8 +68,8 @@ public class PlacingParentheses {
 	
 	public static void initializeMnMx() {	//set the i = j elements to the value of di
 		for(int i = 1; i <= n; ++i) {
-			mn[i][i] = digits[i];
-			mx[i][i] = digits[i];
+			mn[i][i] = (long) digits[i];
+			mx[i][i] = (long) digits[i];
 		}
 	}
 	
