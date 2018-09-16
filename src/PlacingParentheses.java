@@ -12,7 +12,7 @@ public class PlacingParentheses {
 	
 	/*
 	 * These arrays represent sub expressions in the input expression ie.
-	 * d1 o1 d2 o2 di oi d o d o d oj-1 dj ... on-1 dn
+	 * d1 o1 d2 o2 (di oi d o d o d oj-1 dj) ... on-1 dn
 	 * 
 	 * i 			j
 	 *   1 2 3 4 . . n
@@ -50,8 +50,8 @@ public class PlacingParentheses {
 			}		
 		}
 		
-        System.out.println("ops: "+Arrays.toString(ops));
-        System.out.println("digits: "+Arrays.toString(digits));
+//        System.out.println("ops: "+Arrays.toString(ops));
+//        System.out.println("digits: "+Arrays.toString(digits));
 
 	}
 	
@@ -63,7 +63,7 @@ public class PlacingParentheses {
 				++nn;
 		}
 		n = nn;
-        System.out.println("Length: "+ n);
+//        System.out.println("Length: "+ n);
 	}
 	
 	public static void initializeMnMx() {	//set the i = j elements to the value of di
@@ -84,21 +84,19 @@ public class PlacingParentheses {
 		long[] results = new long[4];		//[0] = mx op mx | [1] = mx op mn | [2] = mn op mx | [3] = mn op mn 
 
 		
-		for(int k = i; k < j; ++k) {
-			results[0] = eval(mx[i][k], mx[k + 1][j], ops[k]);	//evaluate the 4 permutations of the mn & mx sub problems
-			results[1] = eval(mx[i][k], mn[k + 1][j], ops[k]);
+		for(int k = i; k < j; ++k) {							//for each op
+			results[0] = eval(mx[i][k], mx[k + 1][j], ops[k]);	//evaluate the 4 permutations of the 
+			results[1] = eval(mx[i][k], mn[k + 1][j], ops[k]);	//mn & mx sub problems
 			results[2] = eval(mn[i][k], mx[k + 1][j], ops[k]);
 			results[3] = eval(mn[i][k], mn[k + 1][j], ops[k]);
-		}
-		
-		
-		for(int ii = 0; ii < 4; ++ii) {
-			if(results[ii] < min)
-				min = results[ii];
-			if(results[ii] > max)
-				max = results[ii];
-		}
-		
+			
+			for(int ii = 0; ii < 4; ++ii) {						//and update the max and min result
+				if(results[ii] < min)							//after each op
+					min = results[ii];
+				if(results[ii] > max)
+					max = results[ii];
+			}
+		}		
 	}
 	
 	
@@ -117,6 +115,12 @@ public class PlacingParentheses {
 			}
 		}
 		
+//		System.out.println("Max:");
+//		printArray(mx, n);
+//		System.out.println("");
+//		System.out.println("Min:");
+//		printArray(mn, n);
+//		System.out.println("");
 		
 		return mx[1][n];	//This represents the maximum value of the whole expression from i = 1 to j = n
 		
@@ -124,8 +128,15 @@ public class PlacingParentheses {
 	}	
     	
     
-    
-    
+	private static void printArray(long[][] a, int nn) {
+		for(int i = 1; i <= nn; ++i) {
+			System.out.println("");
+			for(int j = 1; j <= nn; ++j) {
+				System.out.print(" " + a[i][j]);
+			}
+		}
+	}
+ 
     private static long eval(long a, long b, char op) {
         if (op == '+') {
             return a + b;
@@ -143,6 +154,7 @@ public class PlacingParentheses {
         Scanner scanner = new Scanner(System.in);
         String exp = scanner.next();
        
+//        System.out.println("Max(1,n): "+getMaximValue(exp));
         System.out.println(getMaximValue(exp));
         
         scanner.close();
