@@ -2,13 +2,13 @@ import java.util.*;
 import java.io.*;
 
 public class Partition3 {
-    private static boolean partition3(int[] A) {
+    private static int partition3(int[] A) {
         
     	int n = A.length;
     	int sum = 0;
     	
     	if(n < 3)
-    		return false;
+    		return 0;
     	
     	
     	for(int i = 0; i < n; ++i) {
@@ -16,9 +16,9 @@ public class Partition3 {
     	}
     	
     	if(sum % 3 != 0)
-    		return false;
+    		return 0;
     	
-    	boolean[][] T = new boolean[n][sum];	//default initialization to false
+    	boolean[][] T = new boolean[n][sum + 1];	//default initialization to false
     	
     	// T [elemets in set A][partial sums]
     	
@@ -27,16 +27,25 @@ public class Partition3 {
     	
     	T[0][A[0]] = true;												//with a single element only that value can be created
     	
+    	//System.out.println("");
+    	
     	for (int el = 1; el < n; ++el) {								//for each remaining element
     		for(int ps = 1; ps <= sum; ++ps) {							//for each partial sum
+    			//System.out.println("el: " + el + " ps: " + ps);
     			
-    			T[el][ps] = T[el - 1][ps] || T[el - 1][ps - A[el]];		//this ps can be formed from the previous elements
-    																	//or from a partial sum less this element's value     			
+    			if(A[el] <= ps)
+    				T[el][ps] = T[el - 1][ps] || T[el - 1][ps - A[el]];		//this ps can be formed from the previous elements
+    			else														//or from a partial sum less this element's value
+    				T[el][ps] = T[el - 1][ps];								//unless the value of the element is > than ps
+    																	     			
     		}
     	}
  
-        return T[n-1][sum/3] && T[n-1][2*sum/3];						//if both partial sums can be formed then 3 equal sets
-        																//exist since an element can't be summed twice
+    	if(T[n-1][sum/3] && T[n-1][2*sum/3])						//if both partial sums can be formed then 3 equal sets
+    		return 1;						
+    	else														//exist since an element can't be summed twice
+    		return 0;
+        															//and the remaining set is equal since the sum % 3 = 0
     }
 
     public static void main(String[] args) {
@@ -47,6 +56,7 @@ public class Partition3 {
             A[i] = scanner.nextInt();
         }
         System.out.println(partition3(A));
+        scanner.close();
     }
 }
 
